@@ -28,11 +28,15 @@ async function run() {
     const serviceCollection = client.db("carsDoctors").collection('services');
     const bookingCollection = client.db("carsDoctors").collection('bookings');
 
+
+    // sob gola data load kore
     app.get("/services", async(req, res)=>{
         const result =await serviceCollection.find().toArray()
         res.send(result)
     })
 
+
+    // sodu 1 ta data load kore
     app.get("/services/:id", async(req, res)=>{
         const id = req.params.id;
         const query = {_id: new ObjectId(id)};
@@ -43,6 +47,8 @@ async function run() {
         res.send(result)
     })
 
+
+    // 1 email a joto data ace sodhu ei gola load kore
     app.get('/bookings', async(req, res)=>{
       console.log(req.query.email)
       let query ={}
@@ -53,6 +59,7 @@ async function run() {
       res.send(result)
     })
 
+    // server a data post kore
     app.post('/bookings', async(req,res)=>{
       const booking = req.body;
       const result = await bookingCollection.insertOne(booking);
